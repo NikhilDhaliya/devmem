@@ -20,6 +20,13 @@ It scans your project, understands your folder structure, and feeds it to an LLM
 ##  Quick Start
 
 ### 1. Install it
+
+**Using npm (Recommended)**
+```bash
+npm install -g devmem
+```
+
+**From Source**
 ```bash
 git clone https://github.com/NikhilDhaliya/devmem.git
 cd devmem

@@ -1,25 +1,26 @@
 # DevMem
 
-> Generate persistent, domain-specific context files for AI tools.
+> Stop re-explaining your codebase to AI. Turn it into context that actually works.
 
-DevMem scans your codebase and generates structured context files that any AI tool can use to instantly understand your project - no more re-explaining.
+We’ve all been there: you open ChatGPT or Claude, and then spend 10 minutes copying and pasting files just so it understands what you’re working on. **DevMem** exists to skip that part.
 
----
-
-##  Features
-
-- **Folder-aware output** — generates one `.md` per top-level folder, named to match your project structure
-- **Targeted generation** — generate context for a specific folder, subfolder, or file with `--only`
-- **Multi-provider AI** — supports Gemini, OpenAI, and Anthropic
-- **Smart scanning** — ignores `node_modules`, binaries, lockfiles, and respects size limits
-- **AI-optimized output** — concise, structured, bullet-point context that fits in LLM context windows
+It scans your project, understands your folder structure, and feeds it to an LLM to generate clean, high-density context files. One command, and you have exactly what you need to give any AI the full picture of your app.
 
 ---
 
-##  Installation
+##  Why DevMem?
 
+- **Zero Friction**: No manual copying. Just `devmem generate`.
+- **Folder-Smart**: It knows your `client` is different from your `server`. It gives you separate, organized context for each.
+- **AI-Ready**: The output isn't just a code dump; it’s optimized for LLMs to consume efficiently.
+- **Privacy First**: Everything runs locally. Your keys, your code, your control.
+
+---
+
+##  Quick Start
+
+### 1. Install it
 ```bash
-# Clone and install
 git clone https://github.com/NikhilDhaliya/devmem.git
 cd devmem
 npm install
@@ -27,121 +28,78 @@ npm run build
 npm link
 ```
 
+### 2. Connect your AI
+```bash
+devmem setup
+```
+Pick your favorite—**Gemini, OpenAI, or Anthropic**. Pop in your API key, choose a model, and you're good to go.
+
 ---
 
 ##  Usage
 
-### 1. Setup your AI provider
-
-```bash
-devmem setup
-```
-
-Choose between **Gemini**, **OpenAI**, or **Anthropic**, enter your API key, and optionally pick a model.
-
-```bash
-# View current config
-devmem setup --show
-
-# Remove config and API key
-devmem setup --remove
-```
-
-### 2. Generate context
-
-Navigate to any project and run:
+### The Magic Command
+Navigate to your project (any project!) and run:
 
 ```bash
 devmem generate
 ```
 
-This scans your project and creates `.dev/<folder>.md` for each top-level folder:
+**What happens next?**
+DevMem scans your files (smartly ignoring the junk like `node_modules`), groups them by top-level folders, and creates a `.dev/` directory for you:
 
-```
+```text
 my-app/
-├── client/       →  .dev/client.md
-├── server/       →  .dev/server.md
-├── shared/       →  .dev/shared.md
-├── package.json  →  .dev/root.md
+├── client/       →  .dev/client.md   (Frontend context)
+├── server/       →  .dev/server.md   (Backend context)
+├── shared/       →  .dev/shared.md   (Models & types)
+└── package.json  →  .dev/root.md     (The big picture)
 ```
 
-### 3. Targeted generation
+Now, whenever you start a new chat with an AI, just drop those `.md` files in. **Instantly ready.**
 
-Generate context for specific parts of your project:
+### Need something specific?
+If you're only working on the auth system, don't waste context space. Just target what you need:
 
 ```bash
-# Single folder
+# Just the client
 devmem generate --only client
 
-# Multiple folders
-devmem generate --only "client,server"
-
-# Subfolder or feature
-devmem generate --only src/auth
-
-# Specific file
+# Just one specific file
 devmem generate --only src/utils/db.ts
-```
-
-> **Note:** Even with `--only`, DevMem sends the **full project** to the AI so it understands the complete picture, but generates documentation only for the targeted area.
-
-### 4. Custom output directory
-
-```bash
-devmem generate -o context/
 ```
 
 ---
 
 ##  Configuration
 
-Config is stored in `~/.devmem/config.json`:
+Your settings live in `~/.devmem/config.json`. You can always check or reset them:
 
-```json
-{
-  "provider": "gemini",
-  "apiKey": "your-api-key",
-  "model": "gemini-2.0-flash"
-}
+```bash
+devmem setup --show    # See what's currently set
+devmem setup --remove  # Start fresh
 ```
 
-### Default models
-
-| Provider  | Default Model            |
-|-----------|--------------------------|
-| Gemini    | `gemini-2.0-flash`       |
-| OpenAI    | `gpt-4o-mini`            |
-| Anthropic | `claude-3-5-haiku-latest` |
-
----
-
-##  Philosophy
-
-DevMem is **not** an AI assistant or agent. It's a **context preservation layer** for developers:
-
-- Scan once, reuse everywhere
-- Works with ChatGPT, Claude, Gemini, or any AI tool
-- Structured, compressed, AI-ready context
-- No fluff, no generic explanations
+### Supported Models
+| Provider  | Default Model (The fast, cheap, smart ones) |
+|-----------|--------------------------------------------|
+| Gemini    | `gemini-2.0-flash`                         |
+| OpenAI    | `gpt-4o-mini`                              |
+| Anthropic | `claude-3-5-haiku-latest`                  |
 
 ---
 
 ##  Project Structure
 
-```
+Here is how DevMem looks under the hood:
+
+```text
 devmem/
 ├── src/
-│   ├── index.ts              # CLI entry point
-│   ├── commands/
-│   │   ├── setup.ts           # Interactive provider config
-│   │   └── generate.ts        # Scan + AI context generation
-│   └── utils/
-│       ├── config.ts           # ~/.devmem/config.json management
-│       ├── scanner.ts          # File discovery & folder grouping
-│       ├── ai.ts               # Multi-provider AI client
-│       └── prompts.ts          # Dynamic prompt generation
+│   ├── index.ts        # The CLI front door
+│   ├── commands/       # setup & generate logic
+│   └── utils/          # The engine (scanning, AI clients, prompts)
 ├── package.json
-├── tsconfig.json
 └── README.md
 ```
 
@@ -149,4 +107,4 @@ devmem/
 
 ## License
 
-MIT
+MIT. Go wild.

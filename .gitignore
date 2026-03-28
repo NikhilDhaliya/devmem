@@ -25,7 +25,3 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
-
-# Internal docs
-project.md
-rules.md

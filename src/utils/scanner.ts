@@ -11,12 +11,14 @@ export interface FileEntry {
 export type FolderScanResult = Record<string, FileEntry[]>;
 
 const IGNORE_PATTERNS = [
-  'node_modules/**',
-  'dist/**',
-  'build/**',
-  '.next/**',
-  '.git/**',
-  '.dev/**',
+  '**/node_modules/**',
+  '**/dist/**',
+  '**/build/**',
+  '**/.next/**',
+  '**/.git/**',
+  '**/.dev/**',
+  '**/.cache/**',
+  '**/.DS_Store',
   '*.lock',
   'package-lock.json',
   'yarn.lock',

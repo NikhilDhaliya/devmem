@@ -1,0 +1,58 @@
+{
+  "name": "devmem",
+  "version": "1.0.0",
+  "description": "CLI tool that scans a codebase and generates persistent, domain-specific context files for AI tools",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "devmem": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "cli",
+    "ai",
+    "context",
+    "devmem",
+    "llm",
+    "developer-tools",
+    "codebase-analysis"
+  ],
+  "author": "nikhildhaliya",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NikhilDhaliya/devmem.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NikhilDhaliya/devmem/issues"
+  },
+  "homepage": "https://github.com/NikhilDhaliya/devmem#readme",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.80.0",
+    "@google/generative-ai": "^0.24.1",
+    "commander": "^14.0.3",
+    "fs-extra": "^11.3.4",
+    "glob": "^13.0.6",
+    "openai": "^6.33.0",
+    "ora": "^9.3.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^25.5.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
+  }
+}

@@ -90,7 +90,7 @@ devmem setup --remove  # Start fresh
 ### Supported Models
 | Provider  | Default Model (The fast, cheap, smart ones) |
 |-----------|--------------------------------------------|
-| Gemini    | `gemini-2.0-flash`                         |
+| Gemini    | `gemini-2.5-flash`                         |
 | OpenAI    | `gpt-4o-mini`                              |
 | Anthropic | `claude-3-5-haiku-latest`                  |
 
